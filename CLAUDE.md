@@ -1,6 +1,6 @@
 # CLAUDE.md — read this first, then WHY.md and PLAN.md in full
 
-James directs this work. Not a coder, not a security engineer. Explain every term. Short answers. Yes/no where a yes/no exists. Runs are truth — quote exact numbers from the actual output, never restate from memory or round. Bad news first, plainly. Tell the finding before writing files.
+James directs this work. Explain every term. Short answers. Yes/no where a yes/no exists. Runs are truth — quote exact numbers from the actual output, never restate from memory or round. Bad news first, plainly. Tell the finding before writing files.
 
 ## What this repo is
 
