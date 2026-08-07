@@ -15,6 +15,9 @@ log of all of them is [FINDINGS.md](FINDINGS.md).
 - **0.8075 AUROC / 47.0% precision@100** with the *same recipe, frozen, zero
   re-tuning* on true LI-Small — a different generation run (62.6x lift over
   its 0.75% base rate).
+- **0.8736 AUROC / 76.8% precision@1000** frozen on HI-Medium (31.9M rows,
+  2.08M accounts) — the full pipeline runs on a 32 GB laptop, and the
+  cross-currency triage tier is 99.6% pure there (one seed: 435/435).
 
 The gap between those two is measured, decomposed, and mostly the label's
 composition: 78% of LI-Small's positive accounts are structureless

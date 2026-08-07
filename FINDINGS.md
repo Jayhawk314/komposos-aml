@@ -113,6 +113,16 @@ James downloaded IBM's full Kaggle archive (`data/archive.zip`, all six variants
 
 **Final transfer verdict: the recipe genuinely generalizes — 0.8075 AUROC / 62.6x lift@100 / 86.5% first tier on a different generation run, unretuned.** The 0.09 AUROC gap is real and stays quoted alongside the headline: **0.90 on HI-Small, 0.81 on true LI-Small.**
 
+## Phase 5 — HI-Medium, the scale rung (phase5_transfer_hi_medium.py)
+
+Frozen recipe on HI-Medium from the Kaggle archive: **31,898,238 rows, 2,077,023 accounts, 41,857 positive = 2.0152%**. Ran to completion on the 32 GB laptop — the "memory feasibility unknown" question is answered.
+
+5-seed means: **AUROC 0.8736** (shuffle 0.4992), p@100 0.7900, **p@500 0.8176, p@1000 0.7682** (both *above* HI-Small's 0.7176/0.5912 — partly mechanical, base rate 2.0152% vs 1.2342%), p@npos 0.4077 (npos = 16,743), lift@100 39.2x. **FX tier: 99.58% mean — seed 1 was literally 435/435.** Distinct scores ~787K.
+
+The frozen hub rule (>100) excluded 17 counterparties, topped by **the same account ID as HI-Small's giant hub — `70:100428660`, here with 58,260 touchers**. Third dataset (HI-Small, LI-Small, HI-Medium) where the same bank-70 hub family emerges and the same untuned exclusion rule fires correctly.
+
+Note for reruns: the run whose numbers are quoted above printed "LI" in some section headers — a template artifact from the copied script, since fixed; the loaded file was `hi_medium_full.parquet` (row/account counts confirm).
+
 ## Typology ground-truth audit (phase3_patterns_audit.py) — reframes the whole leaderboard
 
 `HI-Small_Patterns.txt` (from the Kaggle archive) names all 370 generated laundering attempts: typology + exact transactions. First run against it, seed-0 operational best:

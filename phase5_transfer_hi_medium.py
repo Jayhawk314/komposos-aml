@@ -117,7 +117,7 @@ counterparty_long = pd.concat([
 ], ignore_index=True).drop_duplicates()
 popularity = counterparty_long.groupby("counterparty")["acct"].nunique()
 hubs = popularity[popularity > HUB_CUTOFF]
-print(f"  counterparty popularity on LI: median {popularity.median():.0f}, "
+print(f"  counterparty popularity on HI-Medium: median {popularity.median():.0f}, "
       f"max {popularity.max():,}")
 print(f"  frozen hub rule (>{HUB_CUTOFF}) excludes {len(hubs)} counterparties "
       f"(top: {dict(hubs.sort_values(ascending=False).head(5))})")
@@ -149,7 +149,7 @@ idxs = np.arange(n)
 results = []
 print()
 print("=" * 70)
-print("5-SEED RUNS -- frozen recipe, LI data")
+print("5-SEED RUNS -- frozen recipe, HI-Medium data")
 for seed in SEEDS:
     tr, te = train_test_split(idxs, test_size=0.4, stratify=label, random_state=seed)
     ytr, yte = label[tr], label[te]
@@ -198,7 +198,7 @@ base = n_pos / n
 print()
 print("=" * 70)
 print("TRANSFER VERDICT (mean across 5 seeds) vs the HI-Small numbers")
-print(f"  {'metric':<14}{'LI (this run)':>15}{'HI (recorded)':>15}")
+print(f"  {'metric':<14}{'Med (this run)':>15}{'HI (recorded)':>15}")
 print("  " + "-" * 44)
 hi_ref = {"auroc": 0.8991, "auroc_shuf": 0.4975, "p@100": 0.8740,
           "p@500": 0.7176, "p@1000": 0.5912, "p@npos": 0.4207}
@@ -206,7 +206,7 @@ for metric, hi_val in hi_ref.items():
     print(f"  {metric:<14}{res[metric].mean():>15.4f}{hi_val:>15.4f}")
 print(f"  {'fx_tier_rate':<14}{res['fx_tier_rate'].mean():>15.4f}{0.974:>15.4f}")
 print(f"  {'base rate':<14}{base:>15.4%}{'1.2342%':>15}")
-print(f"  lift@100 on LI: {res['p@100'].mean()/base:.1f}x "
+print(f"  lift@100 on HI-Medium: {res['p@100'].mean()/base:.1f}x "
       f"(HI was {0.8740/0.012342:.1f}x)")
 print()
 print("HI-Medium, frozen recipe. Reference: HI-Small 0.8991 AUROC /")
