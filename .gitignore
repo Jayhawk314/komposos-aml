@@ -1,0 +1,8 @@
+# Data is never committed: multi-GB, and IBM's synthetic AML dataset is not
+# ours to redistribute. See README for download instructions.
+data/
+
+__pycache__/
+*.pyc
+*.pyo
+.venv/
