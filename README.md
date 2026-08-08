@@ -87,8 +87,11 @@ Data goes in `data/` (not in the repo — see NOTICE for attribution):
 Then, in order: `phase0_inspect.py` (label sanity), `phase1_*.py` (counting
 baselines), `phase2_*.py` (methods; `phase2_invariants.py` is the operational
 best), `phase3_*.py` (transfer + typology ground truth), `phase4_*.py`
-(blind-spot attempts, both negative, both explained), `phase5_*.py`
-(HI-Medium scale rung). Python 3.10, pandas, scipy, scikit-learn.
+(blind-spot attempts, both negative, both explained), `phase5_*.py` /
+`phase6_*.py` (HI-Medium and HI-Large scale rungs).
+
+Exact environment versions, the claim-to-script verification map, protocol
+invariants, and auditor guidance: [VERIFICATION.md](VERIFICATION.md).
 
 ## Reading order
 
