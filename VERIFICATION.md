@@ -3,6 +3,10 @@
 This file exists so that someone who did not write this repo can check it.
 Runs are truth: every claim below names the script that prints it.
 
+An independent audit ran this protocol on 2026-08-07 and reproduced every
+rerun number exactly — findings, defects, and two added adversarial controls
+are in AUDIT.md (control script: `audit_baseline_control.py`).
+
 ## Environment (the one every recorded number came from)
 
 - Python 3.10.11 on Windows 11, 32 GB RAM
@@ -33,6 +37,9 @@ conclusions should not change.
    `random_state=seed`, over indices of `sorted(all_accts)` — byte-identical
    across scripts so results compare directly.
 3. A shuffled-label AUROC is computed in the same run and should be ~0.50.
+   (Scope: test labels are shuffled and the same score vector re-graded —
+   this validates the evaluation arithmetic; it cannot detect test-label
+   leakage. Leakage is checked separately via invariant 7 — see AUDIT.md.)
 4. Distinct-score count is printed (guards against universal-tie artifacts).
 5. `precision_at_k` uses threshold-inclusive selection (ties at the cutoff
    included; `sel` may exceed `k`) — never "count strictly higher."
@@ -65,6 +72,11 @@ coherence, PageRank, Kan extensions, typologies) each have their own script;
 FINDINGS.md's leaderboard maps them.
 
 ## Known implementation notes an auditor should not mistake for bugs
+
+- `phase1_baseline.py` predates the split protocol: it scores its label-free
+  features on the whole population (k=6,357, no train/test split). Its
+  numbers are not leaderboard rows; the leaderboard's degree row comes from
+  `phase2_cycles.py` on the standard split (AUDIT.md defects 2–3).
 
 - `phase6_transfer_hi_large.py` reimplements the same feature definitions
   with pyarrow + np.bincount; equivalence arguments are in its docstring.

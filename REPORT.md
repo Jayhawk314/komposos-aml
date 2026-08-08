@@ -144,5 +144,6 @@ Four safeguards run on every method, every time:
 - **Frozen recipe** — running the method on new data with zero changes, so
   the new score is a genuine test rather than a re-tuning exercise.
 - **Hub** — a counterparty touched by an enormous number of accounts (a
-  bank's internal account, effectively). Fifteen of them exist in every IBM
-  dataset tested, always the same "bank 70" family; all are excluded.
+  bank's internal account, effectively). The same "bank 70" family tops the
+  hub list in every IBM dataset tested (15 hubs on HI-Small and LI-Small, 17
+  on HI-Medium, 149 on HI-Large); all are excluded by the same untuned rule.

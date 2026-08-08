@@ -2,7 +2,7 @@
 
 Every number below is from an actual run in this session (2026-08-07), reproducible via the named script. Update this file every time a new method is scored — don't let a result exist only in conversation.
 
-**Fixed protocol, identical across every script**: held-out test split 60/40 stratified, `random_state=0`, built from `sorted(all_accts)` so the split is byte-identical everywhere. 206,036 test accounts, 2,543 positive, base rate 1.2342%. Every method reports: AUROC, AUROC on shuffled labels (should collapse to ~0.5 — a control, not decoration), distinct score count, precision@k with ties handled by threshold-inclusive selection.
+**Fixed protocol, identical across every script** (one exception: `phase1_baseline.py` predates the protocol and scores its label-free features on the whole population, k=6,357 — AUDIT.md defect 3): held-out test split 60/40 stratified, `random_state=0`, built from `sorted(all_accts)` so the split is byte-identical everywhere. 206,036 test accounts, 2,543 positive, base rate 1.2342%. Every method reports: AUROC, AUROC on shuffled labels (should collapse to ~0.5 — a control, not decoration), distinct score count, precision@k with ties handled by threshold-inclusive selection.
 
 ## Leaderboard (bulk ranking: AUROC / precision@k, k = 2,543)
 
@@ -14,7 +14,7 @@ Every number below is from an actual run in this session (2026-08-07), reproduci
 | 2 | cf_damped alone (damped collaborative filtering) | `phase2_cf.py` | 0.8832 | 0.3405 | 0.5010 |
 | 3 | combined_all (logreg, 10 counting/cycle features) | `phase2_combined_all.py` | 0.7759 | 0.0861 | 0.5060 |
 | 4 | combined (logreg, 6 counting features) | `phase1_combined.py` | 0.7762 | 0.0653 | 0.5023 |
-| 5 | degree (true counterparty union) | `phase1_baseline.py` | 0.7640 | 0.0662 | 0.5027 |
+| 5 | degree (true counterparty union) | `phase2_cycles.py`† | 0.7640 | 0.0662 | 0.5027 |
 | 6 | in_degree | `phase2_fan.py` | 0.7391 | 0.0737 | 0.5019 |
 | 7 | out_degree | `phase2_fan.py` | 0.7002 | 0.0299 | 0.5067 |
 | 8 | typology_best (Jaccard match, 8-typology catalog) | `phase2_typologies.py` | 0.5871 | 0.0309 | 0.5016 |
@@ -33,6 +33,8 @@ Every number below is from an actual run in this session (2026-08-07), reproduci
 | — | random_noise | `phase1_baseline.py` | 0.5004 | 0.0131 | 0.4973 |
 
 *tri3_count's precision@k is degenerate at k=2,543 (only 316 test accounts have any value at all — see "honest sparse-feature question" below).
+
+†Provenance corrected by the 2026-08-07 audit (AUDIT.md defect 2): this row was previously attributed to `phase1_baseline.py`, which actually prints the whole-population variant (0.7650 AUROC / 0.0651 prec@k, k=6,357, no split). The row's numbers are printed by `phase2_cycles.py` on the standard seed-0 test split.
 
 ## Best narrow-population (high-lift, small-net) findings
 
