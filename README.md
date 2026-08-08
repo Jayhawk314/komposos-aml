@@ -16,8 +16,14 @@ log of all of them is [FINDINGS.md](FINDINGS.md).
   re-tuning* on true LI-Small — a different generation run (62.6x lift over
   its 0.75% base rate).
 - **0.8736 AUROC / 76.8% precision@1000** frozen on HI-Medium (31.9M rows,
-  2.08M accounts) — the full pipeline runs on a 32 GB laptop, and the
-  cross-currency triage tier is 99.6% pure there (one seed: 435/435).
+  2.08M accounts) — the cross-currency triage tier is 99.6% pure there
+  (one seed: 435/435).
+- **0.8450 AUROC / 86.6% precision@100** frozen on HI-Large — 179.7M rows,
+  2.1M accounts, the whole ladder on a 32 GB laptop (bincount arrays, not
+  pandas groupbys — see `phase6_transfer_hi_large.py`).
+
+A plain-English explanation of the whole project for non-technical readers
+is [REPORT.md](REPORT.md).
 
 The gap between those two is measured, decomposed, and mostly the label's
 composition: 78% of LI-Small's positive accounts are structureless

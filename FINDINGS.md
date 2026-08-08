@@ -123,6 +123,16 @@ The frozen hub rule (>100) excluded 17 counterparties, topped by **the same acco
 
 Note for reruns: the run whose numbers are quoted above printed "LI" in some section headers — a template artifact from the copied script, since fixed; the loaded file was `hi_medium_full.parquet` (row/account counts confirm).
 
+## Phase 6 — HI-Large: the ladder complete (phase6_transfer_hi_large.py)
+
+Frozen recipe on HI-Large: **179,702,229 rows, 2,116,168 accounts, 222,522 positive = 10.5153%** (account base rate is 8.5x HI-Small's because accounts average ~85 transactions here vs ~10 — more chances to be touched; tx-level rate is a familiar 0.1255%). **Ran to completion on the 32 GB laptop** — but only after rewriting the implementation: pyarrow encoding + np.bincount aggregations over integer account codes (the math is unchanged and equivalence is documented in the script docstring; the pandas string-groupby implementation would not have fit). Wedge count for the triangle build: 217,367,494 — under the 800M feasibility tripwire.
+
+5-seed means: **AUROC 0.8450** (range 0.8444–0.8456 — at 2.1M accounts, seeds barely matter; shuffle 0.5002), p@100 0.8660, p@500 0.7636, p@1000 0.7076, p@npos 0.4414 (npos = 89,009), lift@100 8.2x at the 10.52% base. FX tier 95.89% mean.
+
+Frozen hub rule excludes **149** counterparties at this scale; the top five are byte-identical to HI-Medium's (`70:100428660` 58,260; `70:1004286A8` 36,573; …) — HI-Medium appears to be a subset of the same simulation run (observation, not verified).
+
+**The final ladder (frozen recipe, 5-seed means):** HI-Small 0.8991 → HI-Medium 0.8736 → HI-Large 0.8450 → LI-Small 0.8075 AUROC. The AUROC glide with scale is real and unexplained beyond densification; the operational numbers stay strong everywhere (p@100 ≥ 79% on every HI rung), and the FX tier never drops below 86% on any dataset.
+
 ## Typology ground-truth audit (phase3_patterns_audit.py) — reframes the whole leaderboard
 
 `HI-Small_Patterns.txt` (from the Kaggle archive) names all 370 generated laundering attempts: typology + exact transactions. First run against it, seed-0 operational best:
